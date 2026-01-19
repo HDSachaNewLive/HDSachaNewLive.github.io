@@ -2,42 +2,58 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>You've been trolled</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/icon.png" type="image/png">
+  <title>Discord</title>
 
   <style>
     html, body {
       margin: 0;
-      padding: 0;
       width: 100%;
       height: 100%;
-      overflow: hidden;
       background: black;
+      overflow: hidden;
     }
 
-    /* video de fond*/
-    #bg-video {
+    video {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      z-index: -1;
-      filter: brightness(90%);
     }
 
-    .page-wrapper {
-      position: relative;
-      z-index: 1;
+    /* overlay invisible qui capte le clic */
+    #overlay {
+      position: fixed;
+      inset: 0;
+      background: transparent;
+      cursor: pointer;
+      z-index: 10;
     }
   </style>
 </head>
 
 <body>
-  <video autoplay loop muted preload="auto" playsinline id="bg-video">
-    <source src="https://HDSachaNewLive.github.io/assets/videogd2.mp4" type="video/mp4">
-    Ton navigateur ne supporte pas la vidéo.
+
+  <!-- VIDEO : PAS d'autoplay -->
+  <video id="video" loop playsinline preload="auto">
+    <source src="assets/videogd.webm" type="video/webm">
+    <source src="assets/videogd.mp3" type="audio/mp3">
   </video>
+
+  <!-- OVERLAY INVISIBLE -->
+  <div id="overlay"></div>
+
+  <script>
+    const video = document.getElementById("video");
+    const overlay = document.getElementById("overlay");
+
+    overlay.addEventListener("click", () => {
+      video.play();          // lance la vidéo
+      overlay.remove();      // enlève l’overlay
+    }, { once: true });
+  </script>
+
 </body>
 </html>
